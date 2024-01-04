@@ -629,11 +629,9 @@ function toggleMoviesAndShows(event) {
     displaySwiperTvShows();
   }
 }
-
-if(!window.location.pathname){
-
+if (window.location.pathname !== '/search.html') {
     document.querySelectorAll("input[name='type']").forEach((input) => {
-      input.addEventListener("change", toggleMoviesAndShows);
+        input.addEventListener("change", toggleMoviesAndShows);
     });
 }
 
