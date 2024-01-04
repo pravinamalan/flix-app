@@ -441,7 +441,7 @@ function displaySearchResults(results) {
   document.querySelector("#search-results").innerHTML = "";
   document.querySelector("#search-results-heading").innerHTML = "";
   document.querySelector("#pagination").innerHTML = "";
-
+console.log(results);
   results.forEach((result) => {
     const div = document.createElement("div");
     div.classList.add("card");
@@ -587,8 +587,8 @@ function displayBackgroundImage(type, backgroundPath) {
 // toggle movies and shows
 function toggleMoviesAndShows(event) {
   if (event.target.getAttribute("value") === "movie") {
-    const movieWrapper = document.querySelector(".movies-wrapper")?document.querySelector(".movies-wrapper"):"";
-    const tvShowsWrapper = document.querySelector(".tv-shows-wrapper")?document.querySelector(".tv-shows-wrapper"):"";
+    const movieWrapper = document.querySelector(".movies-wrapper");
+    const tvShowsWrapper = document.querySelector(".tv-shows-wrapper");
 
     const movieSwiperWrapper = document.querySelector(".movie-swiper-wrapper");
     const tvShowsSwiperWrapper = document.querySelector(
@@ -629,13 +629,38 @@ function toggleMoviesAndShows(event) {
     displaySwiperTvShows();
   }
 }
-if (window.location.pathname !== '/search.html') {
+function toggletrendingMoviesAndShows(event){
+    if (event.target.getAttribute("value") === "movie") {
+        const movieWrapper = document.querySelector(".movies-wrapper");
+        const tvShowsWrapper = document.querySelector(".tv-shows-wrapper");
+            movieWrapper.classList.toggle("remove");
+    
+        if (!movieWrapper.classList.contains("remove")) {
+          tvShowsWrapper.classList.add("remove");
+        }
+        displayTrendingMovies();
+    } else if (event.target.getAttribute("value") === "tv") {
+        const tvShowsWrapper = document.querySelector(".tv-shows-wrapper");
+        const movieWrapper = document.querySelector(".movies-wrapper");
+    
+        tvShowsWrapper.classList.toggle("remove");
+    
+        if (!tvShowsWrapper.classList.contains("remove")) {
+          movieWrapper.classList.add("remove");
+        }
+        displayTrendingTvShows();
+    }
+}
+if(window.location.pathname === '/' || window.location.pathname === '/index.html'){
     document.querySelectorAll("input[name='type']").forEach((input) => {
         input.addEventListener("change", toggleMoviesAndShows);
     });
 }
-
-
+if(window.location.pathname === '/trending.html'){
+    document.querySelectorAll("input[name='type']").forEach((input) => {
+        input.addEventListener("change", toggletrendingMoviesAndShows);
+    });
+}
 // Init
 const init = () => {
   switch (global.currentPage) {
